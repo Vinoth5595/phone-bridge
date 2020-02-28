@@ -8,8 +8,10 @@ import {
  } from '@angular/common/http';
  import { Observable, throwError } from 'rxjs';
  import { retry, catchError } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
  
- export class HttpInterceptorService implements HttpInterceptor {
+ @Injectable()
+export class HttpInterceptorService implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
       request = request.clone({

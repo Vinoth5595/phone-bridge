@@ -22,7 +22,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -52,7 +52,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -131,6 +130,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "phone-bridge"
+    }
+  },
+  "defaultProject": "phone-bridge",
+  "cli": {
+    "analytics": "b67a3d65-2a08-4743-9da9-0aa53e1940af"
+  }
 }
