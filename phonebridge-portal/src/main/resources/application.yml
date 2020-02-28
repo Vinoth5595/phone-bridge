@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: portalservice
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+    
+#eureka:  
+#  instance:
+#    preferIpAddress : true
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+ # client:
+ #   serviceUrl:
+ #     defaultZone: http://${eureka.host}/eureka
+
+server:
+  port: 8080
+
+mongodb:
+  primary:
+    host: ${mongo.host}
+    port: ${mongo.port}
+    database: ${mongo.dbname}
