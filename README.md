@@ -1,4 +1,4 @@
-# Phone Bridge Project
+# Phone Bridge Project (Microservices)
 
 phonebridge-common - Project contains common functionalities
 phonebridge-portal - Portal web service

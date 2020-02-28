@@ -1,0 +1,68 @@
+runtime: nodejs10
+
+handlers:
+
+# Routing for Javacript to serve directly
+- url: /(.+\.js)
+  static_files: dist/phone-bridge/\1
+  upload: dist/phone-bridge/.*
+  secure: always
+
+  # To load images
+- url: /(.+\.png)
+  static_files: dist/phone-bridge/\1
+  upload: dist/phone-bridge/.*
+  secure: always
+
+  # To load eot files for font awesome
+- url: /(.+\.eot)
+  static_files: dist/phone-bridge/\1
+  upload: dist/phone-bridge/.*
+  secure: always
+
+   # To load svg files for font awesome
+- url: /(.+\.svg)
+  static_files: dist/phone-bridge/\1
+  upload: dist/phone-bridge/.*
+  secure: always
+
+  # To load woff2 files for font awesome
+- url: /(.+\.woff2)
+  static_files: dist/phone-bridge/\1
+  upload: dist/phone-bridge/.*
+  secure: always
+
+    # To load ttf files for font awesome
+- url: /(.+\.ttf)
+  static_files: dist/phone-bridge/\1
+  upload: dist/phone-bridge/.*
+  secure: always
+
+      # To load woff files for font awesome
+- url: /(.+\.woff)
+  static_files: dist/phone-bridge/\1
+  upload: dist/phone-bridge/.*
+  secure: always
+
+# Routing for a prod styles.css to serve directly
+- url: /(.+\.css)
+  static_files: dist/phone-bridge/\1
+  upload: dist/phone-bridge/.*
+  secure: always
+
+# Routing for typedoc, assets and favicon.ico to serve directly
+- url: /((?:assets|docs)/.*|favicon\.ico)
+  static_files: dist/phone-bridge/\1
+  upload: dist/phone-bridge/.*
+  secure: always
+
+# Use index.html for everything else.
+- url: /
+  static_files: dist/phone-bridge/index.html
+  upload: dist/phone-bridge/index.html
+  secure: always
+
+- url: /.*
+  static_files: dist/phone-bridge/index.html
+  upload: dist/phone-bridge/index.html
+  secure: always

@@ -1,0 +1,403 @@
+<app-page-header [heading]="'Campaign'" [icon]="'fa-edit'"></app-page-header>
+<form role="form" [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
+    <aw-wizard>
+        <!--STEP 1 STARTS HERE-->
+        <aw-wizard-step stepTitle="Start Camapign">
+            <!--STEP 1 CONTENT STARTS HERE-->
+            <div class="container">
+                <!--ROW STARTS HERE-->
+                <div class="row">
+                    <!--COLUMN 1 STARTS HERE-->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <!--CAMPAIGN NAME STARTS HERE-->
+                        <fieldset class="form-group">
+                            <label>{{label_campaign_name}}</label>
+                            <input type="text" formControlName="campaignName" name="campaignName" class="form-control">
+                        </fieldset>
+                        <!--CAMPAIGN NAME ENDS HERE-->
+
+                        <!--CAMPAIGN STATUS STARTS HERE-->
+                        <fieldset class="form-group">
+                            <label>{{label_campaign_status}}</label>
+                            <input type="text" formControlName="campaignStatus" name="campaignStatus"
+                                class="form-control">
+                        </fieldset>
+                        <!--CAMPAIGN STATUS ENDS HERE-->
+
+                        <!--TYPE OF CALL STARTS HERE-->
+                        <fieldset class="form-group">
+                            <label>{{label_type_of_call}}</label>
+                            <input type="text" formControlName="typeOfCall" name="typeOfCall" class="form-control">
+                        </fieldset>
+                        <!--TYPE OF CALL ENDS HERE-->
+                    </div>
+                    <!--COLUMN 1 ENDS HERE-->
+
+                    <!--COLUMN 2 STARTS HERE-->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <!--CALL DIRECTION STARTS HERE-->
+                        <fieldset class="form-group">
+                            <label>{{label_call_direction}}</label>
+                            <input type="text" formControlName="callDirection" name="callDirection"
+                                class="form-control">
+                        </fieldset>
+                        <!--CALL DIRECTION ENDS HERE-->
+
+                        <!--IS ENABLED FOR POPUP STARTS HERE-->
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" formControlName="isEnabledForPopup" name="isEnabledForPopup"
+                                    value=""> {{label_is_enabled_for_popup}}
+                            </label>
+                        </div>
+                        <!--IS ENABLED FOR POPUP ENDS HERE-->
+
+                        <!--IS DEFAULT STARTS HERE-->
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" formControlName="isDefault" name="isDefault" value="">
+                                {{label_is_default}}
+                            </label>
+                        </div>
+                        <!--IS DEFAULT ENDS HERE-->
+
+                    </div>
+                    <!--COLUMN 2 ENDS HERE-->
+
+                </div>
+                <!--ROW ENDS HERE-->
+            </div>
+            <button type="button" class="btn btn-secondary" awNextStep>Next Step</button>
+            <!-- <button type="button" class="btn btn-secondary" [awGoToStep]="{stepIndex: 3}">Go directly to fourth
+                Step</button> -->
+            <!--STEP 1 CONTENT ENDS HERE-->
+        </aw-wizard-step>
+        <!--STEP 1 ENDS HERE-->
+
+        <!--STEP 2 STARTS HERE-->
+        <!--<aw-wizard-step stepTitle="Campaign Incoming" awOptionalStep>-->
+        <aw-wizard-step stepTitle="Campaign Incoming">
+            <!--STEP 2 CONTENT STARTS HERE-->
+            <div formGroupName="campaignIncomingSettings" class="container">
+
+                <!--ROW STARTS HERE-->
+                <div class="row">
+                    <!--COLUMN 1 STARTS HERE-->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div formArrayName="didNumbers" class="form-group">
+                            <label>{{label_didnumber}} </label>
+                            <button (click)="addDidNumbers()"><i class="fa fa-plus"></i>&nbsp;</button>
+                            <button (click)="removeDidNumbers()"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                            <div *ngFor="let didnum of didNumbers_array.controls; let i = index">
+                                <input type="text" [formControlName]="i" class="form-control">
+                            </div>
+                        </div>
+
+                        <fieldset class="form-group">
+                            <label>{{label_cti_postback_url}}</label>
+                            <input type="text" formControlName="ctiPostBackUrl" name="ctiPostBackUrl"
+                                class="form-control">
+                        </fieldset>
+
+                    </div>
+                    <!--COLUMN 1 ENDS HERE-->
+
+                    <!--COLUMN 2 STARTS HERE-->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div formArrayName="queueNames" class="form-group">
+                            <label>Enter {{label_queuenames}} </label>
+                            <button (click)="addQueueNames()"><i class="fa fa-plus"></i>&nbsp;</button>
+                            <button (click)="removeQueueNames()"><i class="fa fa-minus"></i>&nbsp;</button>
+                            <div *ngFor="let didnum of queuenames_array.controls; let i = index">
+                                <input type="text" [formControlName]="i" class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--COLUMN 2 ENDS HERE-->
+
+                </div>
+                <!--ROW ENDS HERE-->
+
+                <button type="button" class="btn btn-secondary" awPreviousStep>Go to previous step</button>
+                <button type="button" class="btn btn-secondary" awNextStep>Go to next step</button>
+
+            </div>
+            <!--STEP 2 CONTENT ENDS HERE-->
+        </aw-wizard-step>
+        <!--STEP 2 ENDS HERE-->
+
+        <!--STEP 3 STARTS HERE-->
+        <aw-wizard-step stepTitle="Campaign Outgoing">
+            <!--STEP 3 CONTENT STARTS HERE-->
+            <div formGroupName="campaignOutgoingSettings" class="container">
+                <!--ROW STARTS HERE-->
+                <div class="row">
+                    <!--COLUMN 1 STARTS HERE-->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <fieldset class="form-group">
+                            <label>{{label_is_extension_wise}}</label>
+                            <input type="text" formControlName="isExtensionWise" name="isExtensionWise"
+                                class="form-control">
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label>{{label_no_of_agent_tries}}</label>
+                            <input type="text" formControlName="noOfAgentTries" name="noOfAgentTries"
+                                class="form-control">
+                        </fieldset>
+
+                        <!-- <fieldset class="form-group">
+                            <label>{{label_trunk_name}}</label>
+                            <input type="text" formControlName="trunkName" name="trunkName" class="form-control">
+                        </fieldset> -->
+
+                        <div formArrayName="trunkName" class="form-group" name="trunkName">
+                            <label>Enter {{label_trunk_name}} </label>
+                            <button (click)="addTrunkName()"><i class="fa fa-plus"></i>&nbsp;</button>
+                            <button (click)="removeTrunkName()"><i class="fa fa-minus"></i>&nbsp;</button>
+                            <div *ngFor="let didnum of trunkname_array.controls; let i = index">
+                                <input type="text" [formControlName]="i" class="form-control">
+                            </div>
+                        </div>
+
+                        <fieldset class="form-group">
+                            <label>{{label_dial_out_wait_time_in_secs}}</label>
+                            <input type="text" formControlName="dialOutWaitTimeInSecs" name="dialOutWaitTimeInSecs"
+                                class="form-control">
+                        </fieldset>
+                    </div>
+                    <!--COLUMN 1 ENDS HERE-->
+
+                    <!--COLUMN 2 STARTS HERE-->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <fieldset class="form-group">
+                            <label>{{label_no_of_client_tries}}</label>
+                            <input type="text" formControlName="noOfClientTries" name="noOfClientTries"
+                                class="form-control">
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label>{{label_retry_after}}</label>
+                            <input type="text" formControlName="retryAfter" name="retryAfter" class="form-control">
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label>{{label_prefix}}</label>
+                            <input type="text" formControlName="prefix" name="prefix" class="form-control">
+                        </fieldset>
+                    </div>
+                    <!--COLUMN 2 ENDS HERE-->
+
+                </div>
+                <!--ROW ENDS HERE-->
+                <button type="button" class="btn btn-secondary" awPreviousStep>Previous Step</button>
+                <button type="button" class="btn btn-secondary" awNextStep>Go to next step</button>
+            </div>
+            <!--STEP 3 CONTENT ENDS HERE-->
+        </aw-wizard-step>
+        <!--STEP 3 ENDS HERE-->
+
+        <!--STEP 4 STARTS HERE-->
+        <aw-wizard-step stepTitle="Campaign Popup">
+            <!--STEP 4 CONTENT STARTS HERE-->
+            <div formGroupName="campaignPopup" class="container">
+
+                <!--ROW 1 STARTS HERE-->
+                <div class="row">
+                    <!--COLUMN 1 STARTS HERE-->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <fieldset class="form-group">
+                            <label>{{label_module_name}}</label>
+                            <input type="text" formControlName="moduleName" name="moduleName" class="form-control">
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label>{{label_wrap_up_time_in_secs}}</label>
+                            <input type="text" formControlName="wrapUpTimeInSecs" name="wrapUpTimeInSecs"
+                                class="form-control">
+                        </fieldset>
+                    </div>
+                    <!--COLUMN 1 ENDS HERE-->
+
+                    <!--COLUMN 2 STARTS HERE-->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <fieldset class="form-group">
+                            <label>{{label_directory_info_url}}</label>
+                            <input type="text" formControlName="directoryInfoURL" name="directoryInfoURL"
+                                class="form-control">
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label>{{label_campaign_feed_source}}</label>
+                            <input type="text" formControlName="campaignFeedSource" name="campaignFeedSource"
+                                class="form-control">
+                        </fieldset>
+                    </div>
+                    <!--COLUMN 2 ENDS HERE-->
+                </div>
+                <!--ROW 1 ENDS HERE-->
+                <hr />
+                <div class="row">
+                    <label>Disposition</label>
+                    <button (click)="addDisposition()"><i class="fa fa-plus"></i>&nbsp;</button>
+                    <button (click)="removeDisposition()"><i class="fa fa-minus"></i>&nbsp;</button>
+                </div>
+                <hr />
+
+                <!--ROW 2 STARTS HERE-->
+                <div formArrayName="dispositions" *ngFor="let item of disposition_arr.controls; let i = index;">
+                    <div [formGroupName]="i">
+
+                        <div class="row">
+
+                            <!--COLUMN 1 STARTS HERE-->
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <label>{{label_field_data_type}}</label>
+                                <input type="text" formControlName="fieldDataType" name="fieldDataType"
+                                    class="form-control">
+
+                                <!-- <label>{{label_dependent_list}}</label>
+                                <input type="text" formControlName="dependantDisp" name="dependantDisp"
+                                    class="form-control"> -->
+
+                                    <!--NEED TO CHANGE THIS LATER (showfields_array IS INVALID)-->
+                                    <div formArrayName="dependantDisp" class="form-group" name="dependantDisp">
+                                        <label>{{label_dependent_list}} </label>
+                                        <button (click)="addDropDownValues()"><i class="fa fa-plus"></i>&nbsp;</button>
+                                        <button (click)="removeDropDownValues()"><i class="fa fa-minus"></i>&nbsp;</button>
+                                        <div *ngFor="let dropdownvalue of showfields_array.controls; let i = index">
+                                            <input type="text" [formControlName]="i" class="form-control">
+                                        </div>
+                                    </div>
+                            </div>
+                            <!--COLUMN 1 ENDS HERE-->
+
+                            <!--COLUMN 2 STARTS HERE-->
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <!-- <label>{{label_drop_down_value}}</label>
+                                <input type="text" formControlName="dropDownValues" name="dropDownValues"
+                                    class="form-control"> -->
+
+                                    <!--NEED TO CHANGE THIS LATER (showfields_array IS INVALID)-->
+                                    <div formArrayName="dropDownValues" class="form-group" name="dropDownValues">
+                                        <label>{{label_drop_down_value}} </label>
+                                        <button (click)="addDropDownValues()"><i class="fa fa-plus"></i>&nbsp;</button>
+                                        <button (click)="removeDropDownValues()"><i class="fa fa-minus"></i>&nbsp;</button>
+                                        <div *ngFor="let dropdownvalue of showfields_array.controls; let i = index">
+                                            <input type="text" [formControlName]="i" class="form-control">
+                                        </div>
+                                    </div>
+
+                                <!-- <div formArrayName="dropDownValues" class="form-group" name="dropDownValues">
+                                    <label>Enter {{label_drop_down_value}} </label>
+                                    <button (click)="addDropDownValues()"><i class="fa fa-plus"></i>&nbsp;</button>
+                                    <button (click)="removeDropDownValues()"><i class="fa fa-minus"></i>&nbsp;</button>
+                                    <div *ngFor="let dropdownvalue of dropdown_array.controls; let i = index">
+                                        <input type="text" [formControlName]="i" class="form-control">
+                                    </div>
+                                </div> -->
+
+                                <label>{{label_send_sms}}</label>
+                                <input type="text" formControlName="sendSMS" name="sendSMS" class="form-control">
+                            </div>
+                            <!--COLUMN 2 ENDS HERE-->
+
+                            <!--COLUMN 3 STARTS HERE-->
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <label>{{label_field_label}}</label>
+                                <input type="text" formControlName="fieldLabel" name="fieldLabel" class="form-control">
+
+                                <label>{{label_sms_text}}</label>
+                                <input type="text" formControlName="smsText" name="smsText" class="form-control">
+                            </div>
+                            <!--COLUMN 3 ENDS HERE-->
+
+                            <!--COLUMN 4 STARTS HERE-->
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <label>{{label_call_workflow}}</label>
+                                <input type="text" formControlName="callWorkFlow" name="callWorkFlow"
+                                    class="form-control">
+
+                                <label>{{label_conversion}}</label>
+                                <input type="text" formControlName="conversion" name="conversion" class="form-control">
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <hr />
+                            </div>
+                            <!--COLUMN 4 ENDS HERE-->
+                        </div>
+                    </div>
+                </div>
+                <!--ROW 2 ENDS HERE-->
+
+                <hr />
+                <div class="row">
+                    <label>Show Fields</label>
+                    <button (click)="addShowFields()"><i class="fa fa-plus"></i>&nbsp;</button>
+                    <button (click)="removeShowFields()"><i class="fa fa-minus"></i>&nbsp;</button>
+                </div>
+                <hr />
+
+                <!--ROW 3 STARTS HERE-->
+                <div formArrayName="showFields" *ngFor="let item of showfields_array.controls; let i = index;">
+                    <div [formGroupName]="i">
+                        <div class="row">
+                            <!--COLUMN 1 STARTS HERE-->
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <label>{{label_sf_field_label}}</label>
+                                <input type="text" formControlName="fieldLabel" name="fieldLabel" class="form-control">
+
+                                <label>{{label_is_url}}</label>
+                                <input type="text" formControlName="isUrl" name="isUrl" class="form-control">
+                            </div>
+                            <!--COLUMN 1 ENDS HERE-->
+
+                            <!--COLUMN 2 STARTS HERE-->
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <label>{{label_display_field}}</label>
+                                <input type="text" formControlName="displayField" name="displayField"
+                                    class="form-control">
+                            </div>
+                            <!--COLUMN 2 ENDS HERE-->
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--ROW 3 ENDS HERE-->
+
+                <div class="row">
+                    <label>Campaign Popup Incoming</label>
+                </div>
+
+                <!--ROW 4 STARTS HERE-->
+                <div formGroupName="campaignPopupIncoming">
+                    <div class="row">
+                    <!--COLUMN 1 STARTS HERE-->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <label>{{label_iframe_url}}</label>
+                        <input type="text" formControlName="iFrameUrl" name="iFrameUrl" class="form-control">
+                    </div>
+                    <!--COLUMN 1 ENDS HERE-->
+                    </div>
+                </div>
+                <!--ROW 4 ENDS HERE-->
+
+                <div class="row"></div>
+
+                <button type="button" class="btn btn-secondary" awPreviousStep>Previous Step</button>
+                <button type="submit" class="btn btn-secondary" [disabled]="!campaignForm.valid">Submit</button>
+            </div>
+            <!--STEP 4 CONTENT ENDS HERE-->
+        </aw-wizard-step>
+        <!--STEP 4 ENDS HERE-->
+    </aw-wizard>
+</form>
+
+<h2>Campaign Response</h2>
+<pre>{{ campaignResponseData | async | json }}</pre>
+
+<h2>Campaign Request</h2>
+<pre>{{campaignForm.value | json}}</pre>
