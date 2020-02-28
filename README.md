@@ -6,5 +6,5 @@ phonebridge-portal - Portal web service
 
 phone-bridge-ui - UI for the phone-bridge project
 
-![quote](https://media.images.yourquote.in/post/720/0/0/22/487/4jr12745.webp)
+![quote](https://www.success.com/wp-content/uploads/legacy/sites/default/files/new3.jpg)
 
