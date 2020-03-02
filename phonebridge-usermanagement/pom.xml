@@ -64,10 +64,17 @@
 			<version>${org.mapstruct.version}</version>
 		</dependency>
 
-		<!-- Jackson XML Support dependency (For content negotiation)-->
+		<!-- Jackson XML Support dependency (For content negotiation) -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+
+		<!-- OpenAPI 3 & UI dependency -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.2.32</version>
 		</dependency>
 
 		<dependency>

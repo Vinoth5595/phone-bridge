@@ -3,6 +3,9 @@ server:
 logging:
    level:
       root: INFO
+springdoc:
+   swagger-ui:
+      path: /phonebgidge-um-doc.html
 spring:
    data:
       mongodb:
