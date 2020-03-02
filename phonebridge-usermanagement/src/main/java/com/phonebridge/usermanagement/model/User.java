@@ -1,8 +1,7 @@
 package com.phonebridge.usermanagement.model;
 
-import java.util.Date;
-
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class User {
 	@Id
+	private String id;
 	private String userId;
 	private String password;
 //	private String accountId;

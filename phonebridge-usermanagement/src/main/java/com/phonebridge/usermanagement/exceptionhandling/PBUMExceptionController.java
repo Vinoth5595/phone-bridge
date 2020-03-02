@@ -18,10 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ControllerAdvice
-public class CampaignExceptionController {
+public class PBUMExceptionController {
 
 	@ExceptionHandler(InvalidFormatException.class)
 	public final ResponseEntity<Object> invalidFormatExceptions(InvalidFormatException ex) {
+		log.error("invalidFormatExceptions:::", ex);
 		List<String> details = new ArrayList<>();
 		details.add(ex.getLocalizedMessage());
 		ErrorResponse error = new ErrorResponse("Bad Request Invalid", details);
@@ -31,6 +32,7 @@ public class CampaignExceptionController {
 	@ExceptionHandler(JsonMappingException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public final ResponseEntity<Object> jsonExceptions(JsonMappingException ex) {
+		log.error("jsonExceptions:::", ex);
 		List<String> details = new ArrayList<>();
 		details.add(ex.getLocalizedMessage());
 		ErrorResponse error = new ErrorResponse("Bad Request JSON", details);
@@ -39,6 +41,7 @@ public class CampaignExceptionController {
 
 	@ExceptionHandler(RecordNotFoundException.class)
 	public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex) {
+		log.error("handleUserNotFoundException:::", ex);
 		List<String> details = new ArrayList<>();
 		details.add(ex.getLocalizedMessage());
 		ErrorResponse error = new ErrorResponse("Record Not Found", details);
@@ -47,10 +50,10 @@ public class CampaignExceptionController {
 
 	@ExceptionHandler(Exception.class)
 	public final ResponseEntity<Object> handleAllExceptions(Exception ex) {
-		log.error("Exception:::", ex);
+		log.error("handleAllExceptions:::", ex);
 		List<String> details = new ArrayList<>();
 		details.add(ex.getLocalizedMessage());
-		ErrorResponse error = new ErrorResponse("Server Error", details);
+		ErrorResponse error = new ErrorResponse("Internal Server Error", details);
 		return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

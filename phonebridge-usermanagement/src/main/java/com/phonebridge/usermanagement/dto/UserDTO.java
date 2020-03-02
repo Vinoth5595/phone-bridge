@@ -2,6 +2,8 @@ package com.phonebridge.usermanagement.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonRootName("user")
 public class UserDTO {
+	private String id;
 	private String userId;
 	private String password;
 //	private String accountId;

@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.phonebridge.usermanagement.dto.UserDTO;
-import com.phonebridge.usermanagement.mapper.UserMapper;
-import com.phonebridge.usermanagement.model.User;
 import com.phonebridge.usermanagement.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,32 +32,26 @@ public class UserController {
 	@PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO create(@RequestBody @Valid UserDTO user) {
-		log.info("inside create....");
-		//User u = UserMapper.INSTANCE.UserDTOtoUser(user);
-		log.info("inside create....1111");
-		//return UserMapper.INSTANCE.userToUserDTO(u);
         return userService.createUser(user);
     }
 	
-	@DeleteMapping(value = "/delete/{id}")
+	@DeleteMapping(value = "/{id}")
 	public UserDTO delete(@PathVariable("id") String id) {
         return userService.deleteUser(id);
     }
 
 	@GetMapping("/all")
 	public List<UserDTO>  findAll() {
-		log.info("inside findall method-->");
         return userService.findAll();
     }
 	
 	@GetMapping(value = "/{id}")
 	public UserDTO findById(@PathVariable("id") String id) {
-		//UserDTO userDto = UserDTO.builder().userId("123").password("123").build();
-		//return userDto;
+		log.info("id::"+id);
         return userService.findById(id);
     }
 	
-	@PutMapping(value = "/update/{id}")
+	@PutMapping(value = "/{id}")
 	public UserDTO update(@RequestBody @Valid UserDTO todoEntry) {
         return userService.updateUser(todoEntry);
     }
