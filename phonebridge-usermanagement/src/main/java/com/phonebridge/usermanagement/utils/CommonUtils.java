@@ -9,6 +9,14 @@ import com.phonebridge.usermanagement.dto.UserDTO;
 import com.phonebridge.usermanagement.mapper.UserMapper;
 import com.phonebridge.usermanagement.model.User;
 
+/**
+* Phone Bridge User Management utility functions 
+*
+* @author  Vinoth Manoharan
+* @version 1.0
+* @since   06-March-2020 
+*/
+
 @Component
 public class CommonUtils {
 

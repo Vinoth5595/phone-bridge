@@ -16,10 +16,24 @@ import com.phonebridge.usermanagement.model.ErrorResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+* Phone Bridge user management exception controller
+*
+* @author  Vinoth Manoharan
+* @version 1.0
+* @since   06-March-2020 
+*/
+
 @Slf4j
 @ControllerAdvice
 public class PBUMExceptionController {
 
+	/**
+	 * handle invalid format exceptions
+	 * 
+	 * @param ex
+	 * @return
+	 */
 	@ExceptionHandler(InvalidFormatException.class)
 	public final ResponseEntity<Object> invalidFormatExceptions(InvalidFormatException ex) {
 		log.error("invalidFormatExceptions:::", ex);
@@ -29,6 +43,12 @@ public class PBUMExceptionController {
 		return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * handle json mapping exceptions
+	 * 
+	 * @param ex
+	 * @return
+	 */
 	@ExceptionHandler(JsonMappingException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public final ResponseEntity<Object> jsonExceptions(JsonMappingException ex) {
@@ -39,6 +59,12 @@ public class PBUMExceptionController {
 		return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * handle user not found exceptions
+	 * 
+	 * @param ex
+	 * @return
+	 */
 	@ExceptionHandler(RecordNotFoundException.class)
 	public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex) {
 		log.error("handleUserNotFoundException:::", ex);
@@ -48,6 +74,12 @@ public class PBUMExceptionController {
 		return new ResponseEntity(error, HttpStatus.NOT_FOUND);
 	}
 
+	/**
+	 * handle all the remaining exceptions, if it is not handled by the above exception handlers
+	 * 
+	 * @param ex
+	 * @return
+	 */
 	@ExceptionHandler(Exception.class)
 	public final ResponseEntity<Object> handleAllExceptions(Exception ex) {
 		log.error("handleAllExceptions:::", ex);

@@ -10,6 +10,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+* Phone Bridge user data transaction object 
+*
+* @author  Vinoth Manoharan
+* @version 1.0
+* @since   06-March-2020 
+*/
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
