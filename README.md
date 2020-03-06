@@ -1,10 +1,11 @@
 # Phone Bridge Project (Microservices)
 
-phonebridge-common - Project contains common functionalities
-
-phonebridge-portal - Portal web service
-
-phone-bridge-ui - UI for the phone-bridge project
+| Application  | Description | Port |
+| ------------- | ------------- | ------------- |
+| phonebridge-common  | Project with common files  | NA  |
+| phonebridge-portal  | Portal service & campaign service  | 8080  |
+| phone-bridge-ui  | User interface for phone bridge application  | 4200  |
+| phonebridge-usermanagement  | Phone bridge user management  | 8080  |
 
 ![quote](https://www.success.com/wp-content/uploads/legacy/sites/default/files/new3.jpg)
 
