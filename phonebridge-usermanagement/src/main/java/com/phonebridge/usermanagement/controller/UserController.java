@@ -22,32 +22,63 @@ import com.phonebridge.usermanagement.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+* Phone Bridge user controller 
+*
+* @author  Vinoth Manoharan
+* @version 1.0
+* @since   06-March-2020 
+*/
+
 @Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
 	@Autowired
-	private UserService userService;
+	private UserService userService; // User service reference
 
+	/**
+	 * To create the user
+	 * 
+	 * @param user
+	 * @return created user
+	 */
 	@PostMapping("/create")
 	public ResponseEntity<UserDTO> create(@RequestBody @Valid UserDTO user) {
 		UserDTO userDto = userService.createUser(user);
 		return new ResponseEntity<>(userDto, HttpStatus.CREATED);
 	}
 
+	/**
+	 * To delete the user by id
+	 * 
+	 * @param id
+	 * @return no content status on success
+	 */
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> delete(@PathVariable("id") String id) {
 		UserDTO userDto = userService.deleteUser(id);
 		return new ResponseEntity<>(userDto, HttpStatus.NO_CONTENT);
 	}
 
+	/**
+	 * To get all the users
+	 * 
+	 * @return list of users
+	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<UserDTO>> findAll() {
 		List<UserDTO> userDtoList = userService.findAll();
 		return new ResponseEntity<>(userDtoList, HttpStatus.OK);
 	}
 
+	/**
+	 * To get the list of user by id
+	 * 
+	 * @param id
+	 * @return user detail
+	 */
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> findById(@PathVariable("id") String id) {
 		log.info("id::" + id);
@@ -55,6 +86,12 @@ public class UserController {
 		return new ResponseEntity<>(userDto, HttpStatus.OK);
 	}
 
+	/**
+	 * To update the user details by id
+	 * 
+	 * @param todoEntry
+	 * @return no content status, on successs
+	 */
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> update(@RequestBody @Valid UserDTO todoEntry) {
 		UserDTO userDto = userService.updateUser(todoEntry);
