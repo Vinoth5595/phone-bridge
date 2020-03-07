@@ -1,6 +1,3 @@
-spring:
-  application:
-    name: user-management
 server:
    port: 8081
 logging:
@@ -10,6 +7,8 @@ springdoc:
    swagger-ui:
       path: /phonebridge-user-management.html
 spring:
+   application:
+      name: user-management
    data:
       mongodb:
          authentication-database: admin

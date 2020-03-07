@@ -26,10 +26,10 @@ public interface UserService {
 	/**
 	 * To Update user details
 	 *
-	 * @param userDto
+	 * @param userId
 	 * @return updated user details
 	 */
-	UserDTO updateUser(UserDTO userDto);
+	UserDTO updateUser(String userId, UserDTO userDto);
 
 	/**
 	 * To delete a user
@@ -37,7 +37,7 @@ public interface UserService {
 	 * @param id
 	 * @return details of the deleted user
 	 */
-	UserDTO deleteUser(String id);
+	void deleteUser(String id);
 
 	/**
 	 * To get the list of users.
@@ -50,5 +50,5 @@ public interface UserService {
 	 * @param id
 	 * @return the user details
 	 */
-	UserDTO findById(String id);
+	UserDTO findByUserId(String id);
 }

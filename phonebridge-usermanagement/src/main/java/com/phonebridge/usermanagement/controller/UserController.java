@@ -56,10 +56,10 @@ public class UserController {
 	 * @param id
 	 * @return no content status on success
 	 */
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> delete(@PathVariable("id") String id) {
-		UserDTO userDto = userService.deleteUser(id);
-		return new ResponseEntity<>(userDto, HttpStatus.NO_CONTENT);
+	@DeleteMapping(value = "/{userId}")
+	public ResponseEntity<UserDTO> delete(@PathVariable("userId") String userId) {
+		userService.deleteUser(userId);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 	/**
@@ -79,10 +79,10 @@ public class UserController {
 	 * @param id
 	 * @return user detail
 	 */
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> findById(@PathVariable("id") String id) {
-		log.info("id::" + id);
-		UserDTO userDto = userService.findById(id);
+	@GetMapping(value = "/{userId}")
+	public ResponseEntity<UserDTO> findById(@PathVariable("userId") String userId) {
+		log.info("userId::" + userId);
+		UserDTO userDto = userService.findByUserId(userId);
 		return new ResponseEntity<>(userDto, HttpStatus.OK);
 	}
 
@@ -90,11 +90,11 @@ public class UserController {
 	 * To update the user details by id
 	 * 
 	 * @param todoEntry
-	 * @return no content status, on successs
+	 * @return no content status, on success
 	 */
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> update(@RequestBody @Valid UserDTO todoEntry) {
-		UserDTO userDto = userService.updateUser(todoEntry);
+	@PutMapping(value = "/{userId}")
+	public ResponseEntity<UserDTO> update(@PathVariable("userId") String userId,@RequestBody @Valid UserDTO todoEntry) {
+		UserDTO userDto = userService.updateUser(userId, todoEntry);
 		return new ResponseEntity<>(userDto, HttpStatus.NO_CONTENT);
 	}
 
