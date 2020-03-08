@@ -26,29 +26,34 @@ public interface UserService {
 	/**
 	 * To Update user details
 	 *
+	 * @param accountId
 	 * @param userId
+	 * @param userDto
 	 * @return updated user details
 	 */
-	UserDTO updateUser(String userId, UserDTO userDto);
+	UserDTO updateUserByAccountIdAndUserId(int accountId, String userId, UserDTO userDto);
 
 	/**
-	 * To delete a user
+	 * To delete a user by account id and user id
 	 *
-	 * @param id
+	 * @param accountId
+	 * @param userId
 	 * @return details of the deleted user
 	 */
-	void deleteUser(String id);
+	void deleteUserByAccountIdAndUserId(int accountId, String userId);
 
 	/**
 	 * To get the list of users.
 	 */
 	List<UserDTO> findAll();
-
+	
 	/**
-	 * To find the user by Id
-	 * 
-	 * @param id
-	 * @return the user details
+	 * To get the user by account id.
 	 */
-	UserDTO findByUserId(String id);
+	UserDTO findUserByAccountIdAndUserId(int accountId, String userId);
+	
+	/**
+	 * To get the list of users by Account Id.
+	 */
+	List<UserDTO> findAllByAccountId(int accountId);
 }

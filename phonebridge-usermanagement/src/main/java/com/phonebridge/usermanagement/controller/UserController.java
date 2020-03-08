@@ -23,12 +23,12 @@ import com.phonebridge.usermanagement.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
-* Phone Bridge user controller 
-*
-* @author  Vinoth Manoharan
-* @version 1.0
-* @since   06-March-2020 
-*/
+ * Phone Bridge user controller
+ *
+ * @author Vinoth Manoharan
+ * @version 1.0
+ * @since 06-March-2020
+ */
 
 @Slf4j
 @RestController
@@ -44,22 +44,10 @@ public class UserController {
 	 * @param user
 	 * @return created user
 	 */
-	@PostMapping("/create")
+	@PostMapping
 	public ResponseEntity<UserDTO> create(@RequestBody @Valid UserDTO user) {
 		UserDTO userDto = userService.createUser(user);
 		return new ResponseEntity<>(userDto, HttpStatus.CREATED);
-	}
-
-	/**
-	 * To delete the user by id
-	 * 
-	 * @param id
-	 * @return no content status on success
-	 */
-	@DeleteMapping(value = "/{userId}")
-	public ResponseEntity<UserDTO> delete(@PathVariable("userId") String userId) {
-		userService.deleteUser(userId);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 	/**
@@ -74,27 +62,58 @@ public class UserController {
 	}
 
 	/**
+	 * To get all the users in an account
+	 * 
+	 * @param accountId
+	 * @return list of users
+	 */
+	@GetMapping("/{accountId}/all")
+	public ResponseEntity<List<UserDTO>> findAllByAccountId(@PathVariable("accountId") int accountId) {
+		List<UserDTO> userDtoList = userService.findAllByAccountId(accountId);
+		return new ResponseEntity<>(userDtoList, HttpStatus.OK);
+	}
+
+	/**
 	 * To get the list of user by id
 	 * 
-	 * @param id
+	 * @param accountId
+	 * @param userId
 	 * @return user detail
 	 */
-	@GetMapping(value = "/{userId}")
-	public ResponseEntity<UserDTO> findById(@PathVariable("userId") String userId) {
-		log.info("userId::" + userId);
-		UserDTO userDto = userService.findByUserId(userId);
+	@GetMapping(value = "/{accountId}/{userId}")
+	public ResponseEntity<UserDTO> findUserIdByAccountId(@PathVariable("accountId") int accountId,
+			@PathVariable("userId") String userId) {
+		log.info("accountId:" + accountId + "userId::" + userId);
+		UserDTO userDto = userService.findUserByAccountIdAndUserId(accountId, userId);
 		return new ResponseEntity<>(userDto, HttpStatus.OK);
+	}
+
+	/**
+	 * To delete the user by id
+	 * 
+	 * @param accountId
+	 * @param userId
+	 * @return no content status on success
+	 */
+	@DeleteMapping(value = "/{accountId}/{userId}")
+	public ResponseEntity<UserDTO> deleteUserByAccountIdAndUserId(@PathVariable("accountId") int accountId,
+			@PathVariable("userId") String userId) {
+		userService.deleteUserByAccountIdAndUserId(accountId, userId);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 	/**
 	 * To update the user details by id
 	 * 
+	 * @param accountId
+	 * @param userId
 	 * @param todoEntry
 	 * @return no content status, on success
 	 */
-	@PutMapping(value = "/{userId}")
-	public ResponseEntity<UserDTO> update(@PathVariable("userId") String userId,@RequestBody @Valid UserDTO todoEntry) {
-		UserDTO userDto = userService.updateUser(userId, todoEntry);
+	@PutMapping(value = "/{accountId}/{userId}")
+	public ResponseEntity<UserDTO> updateUserByAccountIdAndUserId(@PathVariable("accountId") int accountId,
+			@PathVariable("userId") String userId, @RequestBody @Valid UserDTO todoEntry) {
+		UserDTO userDto = userService.updateUserByAccountIdAndUserId(accountId, userId, todoEntry);
 		return new ResponseEntity<>(userDto, HttpStatus.NO_CONTENT);
 	}
 

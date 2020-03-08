@@ -1,32 +1,46 @@
 package com.phonebridge.usermanagement.utils;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Component;
 
-import com.phonebridge.usermanagement.dto.UserDTO;
-import com.phonebridge.usermanagement.mapper.UserMapper;
-import com.phonebridge.usermanagement.model.User;
-
 /**
-* Phone Bridge User Management utility functions 
-*
-* @author  Vinoth Manoharan
-* @version 1.0
-* @since   06-March-2020 
-*/
+ * Phone Bridge User Management utility functions
+ *
+ * @author Vinoth Manoharan
+ * @version 1.0
+ * @since 06-March-2020
+ */
 
 @Component
 public class CommonUtils {
 
-//	UserMapper userMapper;
-//
-//	public List<UserDTO> convertUserListToUserDTOList(List<User> userList) {
-//		return userList.stream().map(user -> userMapper.userToUserDTO(user)).collect(Collectors.toList());
-//	}
-//
-//	public List<User> convertUserDTOListToUserList(List<UserDTO> userDtoList) {
-//		return userDtoList.stream().map(user -> userMapper.UserDTOtoUser(user)).collect(Collectors.toList());
-//	}
+	public static <T> boolean isBlankOrNull(T obj) {
+
+		if (obj instanceof String) {
+			String val = (String) obj;
+			return val == null || (val!=null && val.trim().equals(""));
+		}
+
+		if (obj instanceof Integer) {
+			int val = (Integer) obj;
+			return val <= 0;
+		}
+
+		if (obj instanceof Float) {
+			float val = (Float) obj;
+			return val <= 0;
+		}
+
+		if (obj instanceof Double) {
+			double val = (Double) obj;
+			return val <= 0;
+		}
+
+		if (obj instanceof Long) {
+			long val = (Long) obj;
+			return val <= 0;
+		}
+
+		return obj == null;
+	}
+
 }

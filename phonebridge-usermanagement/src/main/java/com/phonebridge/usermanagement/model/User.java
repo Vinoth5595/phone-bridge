@@ -1,13 +1,8 @@
 package com.phonebridge.usermanagement.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -47,13 +42,13 @@ public class User {
 	private Privilege privilege;
 
 	// created on
-	private Date createdOn;
+	private LocalDateTime createdOn;
 
 	// created by
 	private String createdBy;
 
 	// modified on
-	private Date modifiedOn;
+	private LocalDateTime modifiedOn;
 
 	// modified by
 	private String modifiedBy;

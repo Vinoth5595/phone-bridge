@@ -1,11 +1,9 @@
 package com.phonebridge.usermanagement.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.phonebridge.usermanagement.model.User.UserBuilder;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,13 +35,13 @@ public class Account {
 	private String accountName;
 
 	// created on
-	private Date createdOn;
+	private LocalDateTime createdOn;
 
 	// created by
 	private String createdBy;
 
 	// modified on
-	private Date modifiedOn;
+	private LocalDateTime modifiedOn;
 
 	// modified by
 	private String modifiedBy;

@@ -1,5 +1,7 @@
 package com.phonebridge.usermanagement.repository;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -23,6 +25,14 @@ public interface UserRepository extends MongoRepository<User, String> {
 	 * @return
 	 */
 	User findByUserId(String userId);
+
+	/**
+	 * To get list of user by account id
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	List<User> findByAccountId(int accountId);
 
 	/**
 	 * To get user by account id and user id

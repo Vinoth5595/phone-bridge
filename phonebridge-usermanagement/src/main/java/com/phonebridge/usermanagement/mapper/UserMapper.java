@@ -24,7 +24,7 @@ public interface UserMapper {
 	 * to map from user to userDTo
 	 * 
 	 * @param user
-	 * @return
+	 * @return UserDTO
 	 */
 	UserDTO userToUserDTO(User user);
 
@@ -32,7 +32,7 @@ public interface UserMapper {
 	 * to map from userDto to User
 	 * 
 	 * @param userDto
-	 * @return
+	 * @return User
 	 */
 	User UserDTOtoUser(UserDTO userDto);
 	
@@ -40,7 +40,7 @@ public interface UserMapper {
 	 * to map from userDto list to user list
 	 * 
 	 * @param userDtoList
-	 * @return
+	 * @return user list 
 	 */
 	List<User> userDtoListToUserList(List<UserDTO> userDtoList);
 	
@@ -48,7 +48,7 @@ public interface UserMapper {
 	 * to map from user list to userDto list
 	 * 
 	 * @param userList
-	 * @return
+	 * @return userDTO list
 	 */
 	List<UserDTO> userListToUserDtoList(List<User> userList);
 

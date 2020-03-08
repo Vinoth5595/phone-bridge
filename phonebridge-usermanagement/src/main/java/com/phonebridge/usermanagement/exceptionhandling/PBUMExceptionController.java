@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.phonebridge.usermanagement.exception.AccountDependentException;
 import com.phonebridge.usermanagement.exception.InvalidAccountException;
+import com.phonebridge.usermanagement.exception.InvalidParameterException;
 import com.phonebridge.usermanagement.exception.RecordNotFoundException;
 import com.phonebridge.usermanagement.exception.UserAlreadyExistsException;
+import com.phonebridge.usermanagement.exception.WrongAccountException;
 import com.phonebridge.usermanagement.model.ErrorResponse;
 
 import lombok.extern.slf4j.Slf4j;
@@ -60,6 +63,22 @@ public class PBUMExceptionController {
 		ErrorResponse error = new ErrorResponse("Bad Request JSON", details);
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
+	
+	/**
+	 * handle invalid parameter exceptions
+	 * 
+	 * @param ex
+	 * @return
+	 */
+	@ExceptionHandler(InvalidParameterException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public final ResponseEntity<Object> handleInvalidParameterException(InvalidParameterException ex) {
+		log.error("handleInvalidParameterException:::", ex);
+		List<String> details = new ArrayList<>();
+		details.add(ex.getLocalizedMessage());
+		ErrorResponse error = new ErrorResponse("Invalid parameter", details);
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
 
 	/**
 	 * handle user not found exceptions
@@ -103,6 +122,36 @@ public class PBUMExceptionController {
 		List<String> details = new ArrayList<>();
 		details.add(ex.getLocalizedMessage());
 		ErrorResponse error = new ErrorResponse("Invalid Account", details);
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+	
+	/**
+	 * handle account dependent exceptions
+	 * 
+	 * @param ex
+	 * @return
+	 */
+	@ExceptionHandler(AccountDependentException.class)
+	public final ResponseEntity<Object> handleAccountDependentException(AccountDependentException ex) {
+		log.error("handleAccountDependentException:::", ex);
+		List<String> details = new ArrayList<>();
+		details.add(ex.getLocalizedMessage());
+		ErrorResponse error = new ErrorResponse("Account is linked with an user", details);
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+	
+	/**
+	 * handle wrong account exceptions
+	 * 
+	 * @param ex
+	 * @return
+	 */
+	@ExceptionHandler(WrongAccountException.class)
+	public final ResponseEntity<Object> handleWrongAccountException(WrongAccountException ex) {
+		log.error("handleWrongAccountException:::", ex);
+		List<String> details = new ArrayList<>();
+		details.add(ex.getLocalizedMessage());
+		ErrorResponse error = new ErrorResponse("Account id should not be different", details);
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
