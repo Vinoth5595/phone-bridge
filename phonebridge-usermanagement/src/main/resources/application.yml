@@ -15,3 +15,7 @@ spring:
          database: pb_user_management
          port: 27018
          host: localhost
+eureka:
+   client:
+      service-url:
+         default-zone: http://localhost:8761/eureka
