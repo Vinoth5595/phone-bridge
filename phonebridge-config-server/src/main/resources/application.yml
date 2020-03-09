@@ -1,0 +1,10 @@
+spring:
+ application:
+    name: phonebridge-config-server
+ cloud:
+  config:
+   server:
+    git:
+     uri: file://F:/Workspace/Eclipse_Workspace/git-localconfig-repo
+server:
+ port: 8888

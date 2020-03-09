@@ -1,21 +1,29 @@
 server:
-   port: 8081
+  port: 8081
 logging:
-   level:
-      root: INFO
+  level:
+    root: INFO
 springdoc:
-   swagger-ui:
-      path: /phonebridge-user-management.html
+  swagger-ui:
+    path: /phonebridge-user-management.html
 spring:
-   application:
-      name: user-management
-   data:
+  application:
+    name: phonebridge-user-management
+cloud:
+  config:
+    uri: 'http://localhost:8888'
+    data:
       mongodb:
-         authentication-database: admin
-         database: pb_user_management
-         port: 27018
-         host: localhost
+        authentication-database: admin
+        database: pb_user_management
+        port: 27018
+        host: localhost
 eureka:
-   client:
-      service-url:
-         default-zone: http://localhost:8761/eureka
+  client:
+    service-url:
+      default-zone: 'http://localhost:8761/eureka'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
