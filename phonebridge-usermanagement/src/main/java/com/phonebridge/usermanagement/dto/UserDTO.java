@@ -1,12 +1,12 @@
 package com.phonebridge.usermanagement.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import org.bson.types.ObjectId;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -31,31 +31,28 @@ import lombok.NoArgsConstructor;
 @Builder
 @JsonRootName("user")
 public class UserDTO {
-	// pb id
-	@JsonProperty("pbId")
-	private String pbId;
 
 	// account id
-	@Min(10000)
-	@Max(99999)
-	@JsonProperty("accountId")
-	private int accountId;
-
-	// user id
-	@NotEmpty
-	@Size(message="userId size should be between 3 and 20",min=3,max=20)
 	@JsonProperty("userId")
 	private String userId;
 
+	// account id
+	@JsonProperty("accountId")
+	private ObjectId accountId;
+
+	// account name
+	@JsonProperty("userName")
+	private String userName;
+
 	// password
-	@Size(message="password size should be between 3 and 20",min=3,max=20)
+	@Size(message = "password size should be between 3 and 20", min = 3, max = 20)
 	@JsonProperty("password")
 	private String password;
 
 	// privilege
 	@JsonProperty("privilege")
 	@Valid
-	private Privilege privilege;
+	private List<Privilege> privilege;
 
 	// created on
 	@JsonProperty("createdOn")

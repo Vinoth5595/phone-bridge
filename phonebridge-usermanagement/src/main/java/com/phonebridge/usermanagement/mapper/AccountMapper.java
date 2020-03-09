@@ -3,6 +3,7 @@ package com.phonebridge.usermanagement.mapper;
 import java.util.List;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
 import com.phonebridge.usermanagement.dto.AccountDTO;

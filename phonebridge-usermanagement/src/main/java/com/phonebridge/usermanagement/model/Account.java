@@ -2,8 +2,10 @@ package com.phonebridge.usermanagement.model;
 
 import java.time.LocalDateTime;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,25 +26,29 @@ import lombok.NoArgsConstructor;
 @Builder
 @Document("accounts")
 public class Account {
-	// pb id
+
+	// account id
 	@Id
-	private String pbId;
+	@Field(name="accountId")
+	private ObjectId accountId;
 
-	// account id
-	private int accountId;
-
-	// account id
+	// account name
+	@Field(name="accountName")
 	private String accountName;
 
 	// created on
+	@Field(name="createdOn")
 	private LocalDateTime createdOn;
 
 	// created by
+	@Field(name="createdBy")
 	private String createdBy;
 
 	// modified on
+	@Field(name="modifiedOn")
 	private LocalDateTime modifiedOn;
 
 	// modified by
+	@Field(name="modifiedBy")
 	private String modifiedBy;
 }

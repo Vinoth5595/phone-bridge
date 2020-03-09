@@ -2,22 +2,18 @@ package com.phonebridge.usermanagement.dto;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.bson.types.ObjectId;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * Phone Bridge account data transaction object
@@ -33,17 +29,9 @@ import lombok.Setter;
 @Builder
 @JsonRootName("account")
 public class AccountDTO {
-
-	// pb id
-	@JsonProperty("pbId")
-	@JsonIgnore
-	private String pbId;
-
 	// account id
-	@Min(10000)
-	@Max(99999)
 	@JsonProperty("accountId")
-	private int accountId;
+	private ObjectId accountId;
 
 	// account id
 	@NotEmpty
@@ -66,4 +54,10 @@ public class AccountDTO {
 	// modified by
 	@JsonProperty("modifiedBy")
 	private String modifiedBy;
+
+//	public String getAccountId() {
+//		return accountId.toHexString();
+//	}
+	
+	
 }

@@ -3,6 +3,7 @@ package com.phonebridge.usermanagement.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,16 +31,13 @@ public class UserServiceImpl implements UserService {
 	private static final String NO_RECORDS_FOUND = "Record Not Found";
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository userRepository; // User repository
 
 	@Autowired
-	private AccountRepository accountRepository;
+	private AccountRepository accountRepository; // Account Repository
 
 	@Autowired
-	private UserMapper userMapper;
-	
-	@Autowired
-	CommonUtils commonUtils;
+	private UserMapper userMapper; // User mapper
 
 	/**
 	 * To create user
@@ -49,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public UserDTO createUser(UserDTO userDto) {
-		if (commonUtils.isBlankOrNull(userDto)) {
+		if (CommonUtils.isBlankOrNull(userDto)) {
 			throw new InvalidParameterException("invalid userDto : " + userDto);
 		}
 		
@@ -59,7 +57,7 @@ public class UserServiceImpl implements UserService {
 			throw new InvalidAccountException("Invalid Account");
 		}
 
-		if (userRepository.findByAccountIdAndUserId(u.getAccountId(), u.getUserId()) != null) {
+		if (userRepository.findByAccountIdAndUserName(u.getAccountId(), u.getUserName()) != null) {
 			throw new UserAlreadyExistsException("User id is not available.");
 		}
 		u.setCreatedOn(LocalDateTime.now());
@@ -77,26 +75,26 @@ public class UserServiceImpl implements UserService {
 	 * @return updated user details
 	 */
 	@Override
-	public UserDTO updateUserByAccountIdAndUserId(int accountId, String userId, UserDTO userDto) {
-		if (commonUtils.isBlankOrNull(accountId)) {
+	public UserDTO updateUserByAccountIdAndUserId(ObjectId accountId, String userId, UserDTO userDto) {
+		if (CommonUtils.isBlankOrNull(accountId)) {
 			throw new InvalidParameterException("invalid accountId : " + accountId);
 		}
 		
-		if (commonUtils.isBlankOrNull(userDto)) {
+		if (CommonUtils.isBlankOrNull(userDto)) {
 			throw new InvalidParameterException("invalid userDto : " + userDto);
 		}
 		
-		User optionalUser = userRepository.findByAccountIdAndUserId(accountId, userId);
+		User optionalUser = userRepository.findByAccountIdAndUserName(accountId, userId);
 		if (optionalUser == null) {
 			throw new RecordNotFoundException(NO_RECORDS_FOUND);
 		}
 
-		if (userDto.getAccountId() > 0 && accountRepository.findByAccountId(userDto.getAccountId()) == null) {
+		if (userDto.getAccountId() != null && accountRepository.findById(userDto.getAccountId()) == null) {
 			throw new InvalidAccountException("Invalid Account id");
 		}
 		
 		User user = userMapper.UserDTOtoUser(userDto);
-		user.setPbId(optionalUser.getPbId());
+		user.setUserName(optionalUser.getUserName());
 		user.setCreatedOn(optionalUser.getCreatedOn());
 		user.setCreatedBy(optionalUser.getCreatedBy());
 		user.setModifiedOn(LocalDateTime.now());
@@ -111,16 +109,16 @@ public class UserServiceImpl implements UserService {
 	 * @return details of the deleted user
 	 */
 	@Override
-	public void deleteUserByAccountIdAndUserId(int accountId, String userId) {
-		if (commonUtils.isBlankOrNull(accountId)) {
+	public void deleteUserByAccountIdAndUserId(ObjectId accountId, String userId) {
+		if (CommonUtils.isBlankOrNull(accountId)) {
 			throw new InvalidParameterException("invalid accountId : " + accountId);
 		}
 		
-		if (commonUtils.isBlankOrNull(userId)) {
+		if (CommonUtils.isBlankOrNull(userId)) {
 			throw new InvalidParameterException("invalid userId : " + userId);
 		}
 		
-		User userReturned = userRepository.findByAccountIdAndUserId(accountId, userId);
+		User userReturned = userRepository.findByAccountIdAndUserName(accountId, userId);
 		if (userReturned == null) {
 			throw new RecordNotFoundException(NO_RECORDS_FOUND);
 		}
@@ -141,8 +139,8 @@ public class UserServiceImpl implements UserService {
 	 * To get the list of users by Account Id.
 	 */
 	@Override
-	public List<UserDTO> findAllByAccountId(int accountId) {
-		if (commonUtils.isBlankOrNull(accountId)) {
+	public List<UserDTO> findAllByAccountId(ObjectId accountId) {
+		if (CommonUtils.isBlankOrNull(accountId)) {
 			throw new InvalidParameterException("invalid accountId : " + accountId);
 		}
 		
@@ -154,20 +152,20 @@ public class UserServiceImpl implements UserService {
 	 * To get the user by account id.
 	 */
 	@Override
-	public UserDTO findUserByAccountIdAndUserId(int accountId, String userId) {
-		if (commonUtils.isBlankOrNull(accountId)) {
+	public UserDTO findUserByAccountIdAndUserName(ObjectId accountId, String userId) {
+		if (CommonUtils.isBlankOrNull(accountId)) {
 			throw new InvalidParameterException("invalid accountId : " + accountId);
 		}
 		
-		if (commonUtils.isBlankOrNull(userId)) {
+		if (CommonUtils.isBlankOrNull(userId)) {
 			throw new InvalidParameterException("invalid userId : " + userId);
 		}
 		
-		if (accountRepository.findByAccountId(accountId) == null) {
+		if (accountRepository.findById(accountId) == null) {
 			throw new InvalidAccountException("Invalid Account id");
 		}
 
-		User user = userRepository.findByAccountIdAndUserId(accountId, userId);
+		User user = userRepository.findByAccountIdAndUserName(accountId, userId);
 
 		if (user == null) {
 			throw new RecordNotFoundException(NO_RECORDS_FOUND);

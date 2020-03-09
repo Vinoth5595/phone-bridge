@@ -2,6 +2,7 @@ package com.phonebridge.usermanagement.repository;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -24,7 +25,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 	 * @param userId
 	 * @return
 	 */
-	User findByUserId(String userId);
+	User findByUserName(String userId);
 
 	/**
 	 * To get list of user by account id
@@ -32,7 +33,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 	 * @param userId
 	 * @return
 	 */
-	List<User> findByAccountId(int accountId);
+	List<User> findByAccountId(ObjectId accountId);
 
 	/**
 	 * To get user by account id and user id
@@ -41,5 +42,5 @@ public interface UserRepository extends MongoRepository<User, String> {
 	 * @param userId
 	 * @return
 	 */
-	User findByAccountIdAndUserId(int accountId, String userId);
+	User findByAccountIdAndUserName(ObjectId accountId, String userName);
 }

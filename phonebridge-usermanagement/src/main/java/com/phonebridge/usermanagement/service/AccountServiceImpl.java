@@ -2,7 +2,9 @@ package com.phonebridge.usermanagement.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +34,6 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private AccountMapper accountMapper; // Account mapper
 
-	@Autowired
-	CommonUtils commonUtils; // Common utils
-
 	/**
 	 * To get the list of accounts.
 	 */
@@ -51,8 +50,8 @@ public class AccountServiceImpl implements AccountService {
 	 * @return
 	 */
 	@Override
-	public AccountDTO findByAccountId(int accountId) {
-		if (commonUtils.isBlankOrNull(accountId)) {
+	public AccountDTO findByAccountId(ObjectId accountId) {
+		if (CommonUtils.isBlankOrNull(accountId)) {
 			throw new InvalidParameterException("invalid accountId : " + accountId);
 		}
 		
@@ -72,7 +71,7 @@ public class AccountServiceImpl implements AccountService {
 	 */
 	@Override
 	public AccountDTO createAccount(AccountDTO accountDto) {
-		if (commonUtils.isBlankOrNull(accountDto)) {
+		if (CommonUtils.isBlankOrNull(accountDto)) {
 			throw new InvalidParameterException("invalid accountDto : " + accountDto);
 		}
 		
@@ -91,29 +90,28 @@ public class AccountServiceImpl implements AccountService {
 	 * @return AccountDTO
 	 */
 	@Override
-	public AccountDTO updateAccount(int accountId, AccountDTO accountDto) {
-		if (commonUtils.isBlankOrNull(accountId)) {
+	public AccountDTO updateAccount(ObjectId accountId, AccountDTO accountDto) {
+		if (CommonUtils.isBlankOrNull(accountId)) {
 			throw new InvalidParameterException("invalid accountId : " + accountId);
 		}
 		
-		if (commonUtils.isBlankOrNull(accountDto)) {
+		if (CommonUtils.isBlankOrNull(accountDto)) {
 			throw new InvalidParameterException("invalid accountDto : " + accountDto);
 		}
 		
-		Account accountFetched = accountRepository.findByAccountId(accountId);
-		if (accountFetched == null) {
+		Optional<Account> accountFetched = accountRepository.findById(accountId);
+		if (!accountFetched.isPresent()) {
 			throw new RecordNotFoundException(NO_RECORDS_FOUND);
 		}
 
-		if (accountId != accountFetched.getAccountId()) {
+		if (accountId !=null && !accountId.equals(accountFetched.get().getAccountId())) {
 			throw new WrongAccountException("Account id should not be different");
 		}
 
 		Account accountPassed = accountMapper.AccountDTOToAccount(accountDto);
-		accountPassed.setPbId(accountFetched.getPbId());
-		accountPassed.setAccountId(accountFetched.getAccountId());
-		accountPassed.setCreatedOn(accountFetched.getCreatedOn());
-		accountPassed.setCreatedBy(accountFetched.getCreatedBy());
+		accountPassed.setAccountId(accountFetched.get().getAccountId());
+		accountPassed.setCreatedOn(accountFetched.get().getCreatedOn());
+		accountPassed.setCreatedBy(accountFetched.get().getCreatedBy());
 		accountPassed.setModifiedOn(LocalDateTime.now());
 		accountRepository.save(accountPassed);
 		return accountMapper.accountToAccountDTO(accountPassed);
@@ -125,13 +123,13 @@ public class AccountServiceImpl implements AccountService {
 	 * @param accountId
 	 */
 	@Override
-	public void deleteAccountByAccountId(int accountId) {
-		if (commonUtils.isBlankOrNull(accountId)) {
+	public void deleteAccountByAccountId(ObjectId accountId) {
+		if (CommonUtils.isBlankOrNull(accountId)) {
 			throw new InvalidParameterException("invalid accountId : " + accountId);
 		}
 
-		Account accountReturned = accountRepository.findByAccountId(accountId);
-		if (accountReturned == null) {
+		Optional<Account> accountReturned = accountRepository.findById(accountId);
+		if (!accountReturned.isPresent()) {
 			throw new RecordNotFoundException(NO_RECORDS_FOUND);
 		}
 
@@ -141,6 +139,6 @@ public class AccountServiceImpl implements AccountService {
 			throw new AccountDependentException("Account is linked with an user");
 		}
 
-		accountRepository.delete(accountReturned);
+		accountRepository.delete(accountReturned.get());
 	}
 }

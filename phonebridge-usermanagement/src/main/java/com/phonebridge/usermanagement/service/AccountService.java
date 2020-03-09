@@ -2,6 +2,8 @@ package com.phonebridge.usermanagement.service;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 import com.phonebridge.usermanagement.dto.AccountDTO;
 
 public interface AccountService {
@@ -20,7 +22,7 @@ public interface AccountService {
 	 * @param accountId
 	 * @return AccountDTO
 	 */
-	AccountDTO findByAccountId(int accountId);
+	AccountDTO findByAccountId(ObjectId accountId);
 	
 	/**
 	 * To create account
@@ -37,12 +39,12 @@ public interface AccountService {
 	 * @param accountDto
 	 * @return AccountDTO
 	 */
-	AccountDTO updateAccount(int accountId, AccountDTO accountDto);
+	AccountDTO updateAccount(ObjectId accountId, AccountDTO accountDto);
 
 	/**
 	 * To delete account by account id
 	 * 	
 	 * @param accountId
 	 */
-	void deleteAccountByAccountId(int accountId);
+	void deleteAccountByAccountId(ObjectId accountId);
 }

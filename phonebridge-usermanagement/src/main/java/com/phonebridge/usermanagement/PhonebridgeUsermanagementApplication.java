@@ -1,7 +1,9 @@
 package com.phonebridge.usermanagement;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
+import org.bson.types.ObjectId;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -63,11 +65,11 @@ public class PhonebridgeUsermanagementApplication {
 	 */
 	public void loadInitialAccountData(AccountRepository repository) {
 		if (repository.count() <= 0) {
+			//repository.save(
+//					Account.builder().accountId("123").accountName("Vinz Corporation").createdOn(LocalDateTime.now())
+//							.createdBy("SYSTEM").modifiedOn(LocalDateTime.now()).modifiedBy("SYSTEM").build());
 			repository.save(
-					Account.builder().accountId(10000).accountName("Vinz Corporation").createdOn(LocalDateTime.now())
-							.createdBy("SYSTEM").modifiedOn(LocalDateTime.now()).modifiedBy("SYSTEM").build());
-			repository.save(
-					Account.builder().accountId(10001).accountName("Sonu Corporation").createdOn(LocalDateTime.now())
+					Account.builder().accountId(new ObjectId("5e665e6b549bc7532505880d")).accountName("Sonu Corporation").createdOn(LocalDateTime.now())
 							.createdBy("SYSTEM").modifiedOn(LocalDateTime.now()).modifiedBy("SYSTEM").build());
 		}
 	}
@@ -79,8 +81,8 @@ public class PhonebridgeUsermanagementApplication {
 	 */
 	public void loadInitialUserData(UserRepository repository) {
 		if (repository.count() <= 0)
-			repository.save(User.builder().accountId(10000).userId("pbsuperuser").password("password")
-					.privilege(Privilege.SUPER_ADMIN).createdBy("SYSTEM").createdOn(LocalDateTime.now())
+			repository.save(User.builder().accountId(new ObjectId("5e6638b42b66326f0dbe2fcd")).userName("pbsuperuser").password("password")
+					.privilege(Arrays.asList(Privilege.SUPER_ADMIN)).createdBy("SYSTEM").createdOn(LocalDateTime.now())
 					.modifiedOn(LocalDateTime.now()).modifiedBy("SYSTEM").build());
 	}
 }

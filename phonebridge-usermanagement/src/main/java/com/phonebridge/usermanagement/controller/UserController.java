@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.phonebridge.usermanagement.dto.UserDTO;
@@ -68,7 +68,7 @@ public class UserController {
 	 * @return list of users
 	 */
 	@GetMapping("/{accountId}/all")
-	public ResponseEntity<List<UserDTO>> findAllByAccountId(@PathVariable("accountId") int accountId) {
+	public ResponseEntity<List<UserDTO>> findAllByAccountId(@PathVariable("accountId") ObjectId accountId) {
 		List<UserDTO> userDtoList = userService.findAllByAccountId(accountId);
 		return new ResponseEntity<>(userDtoList, HttpStatus.OK);
 	}
@@ -81,10 +81,10 @@ public class UserController {
 	 * @return user detail
 	 */
 	@GetMapping(value = "/{accountId}/{userId}")
-	public ResponseEntity<UserDTO> findUserIdByAccountId(@PathVariable("accountId") int accountId,
+	public ResponseEntity<UserDTO> findUserIdByAccountId(@PathVariable("accountId") ObjectId accountId,
 			@PathVariable("userId") String userId) {
 		log.info("accountId:" + accountId + "userId::" + userId);
-		UserDTO userDto = userService.findUserByAccountIdAndUserId(accountId, userId);
+		UserDTO userDto = userService.findUserByAccountIdAndUserName(accountId, userId);
 		return new ResponseEntity<>(userDto, HttpStatus.OK);
 	}
 
@@ -96,7 +96,7 @@ public class UserController {
 	 * @return no content status on success
 	 */
 	@DeleteMapping(value = "/{accountId}/{userId}")
-	public ResponseEntity<UserDTO> deleteUserByAccountIdAndUserId(@PathVariable("accountId") int accountId,
+	public ResponseEntity<UserDTO> deleteUserByAccountIdAndUserId(@PathVariable("accountId") ObjectId accountId,
 			@PathVariable("userId") String userId) {
 		userService.deleteUserByAccountIdAndUserId(accountId, userId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -111,7 +111,7 @@ public class UserController {
 	 * @return no content status, on success
 	 */
 	@PutMapping(value = "/{accountId}/{userId}")
-	public ResponseEntity<UserDTO> updateUserByAccountIdAndUserId(@PathVariable("accountId") int accountId,
+	public ResponseEntity<UserDTO> updateUserByAccountIdAndUserId(@PathVariable("accountId") ObjectId accountId,
 			@PathVariable("userId") String userId, @RequestBody @Valid UserDTO todoEntry) {
 		UserDTO userDto = userService.updateUserByAccountIdAndUserId(accountId, userId, todoEntry);
 		return new ResponseEntity<>(userDto, HttpStatus.NO_CONTENT);

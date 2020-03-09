@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +58,7 @@ public class AccountController {
 	 * @return account detail
 	 */
 	@GetMapping(value = "/{accountId}")
-	public ResponseEntity<AccountDTO> findByAccountId(@PathVariable("accountId") int accountId) {
+	public ResponseEntity<AccountDTO> findByAccountId(@PathVariable("accountId") ObjectId accountId) {
 		log.info("accountId:" + accountId);
 		AccountDTO accountDto = accountService.findByAccountId(accountId);
 		return new ResponseEntity<>(accountDto, HttpStatus.OK);
@@ -85,7 +86,7 @@ public class AccountController {
 	 * @return no content status, on success
 	 */
 	@PutMapping(value = "/{accountId}")
-	public ResponseEntity<AccountDTO> updateAccount(@PathVariable("accountId") int accountId,
+	public ResponseEntity<AccountDTO> updateAccount(@PathVariable("accountId") ObjectId accountId,
 			 @RequestBody @Valid AccountDTO accountDTO) {
 		AccountDTO userDto = accountService.updateAccount(accountId, accountDTO);
 		return new ResponseEntity<>(userDto, HttpStatus.NO_CONTENT);
@@ -100,7 +101,7 @@ public class AccountController {
 	 * @return no content status on success
 	 */
 	@DeleteMapping(value = "/{accountId}")
-	public ResponseEntity<UserDTO> deleteUserByAccountIdAndUserId(@PathVariable("accountId") int accountId) {
+	public ResponseEntity<UserDTO> deleteUserByAccountIdAndUserId(@PathVariable("accountId") ObjectId accountId) {
 		accountService.deleteAccountByAccountId(accountId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
