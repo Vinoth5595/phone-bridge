@@ -4,6 +4,6 @@ While application is running, we can commit the property changes to github and u
 
 | Application  | Description | Swagger URL |
 | ------------- | ------------- | ------------- |
-| phonebridge-usermanagement  | Phone bridge config server property refresh URL (POST request)  | http://localhost:8888/actuator/bus-refresh  |
+| phonebridge-config-server  | Phone bridge config server property refresh URL (POST request)  | http://localhost:8888/actuator/bus-refresh  |
 
 
