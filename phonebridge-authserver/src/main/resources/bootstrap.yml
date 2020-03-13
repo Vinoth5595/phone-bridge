@@ -1,0 +1,48 @@
+server:
+   port: 8081
+logging:
+   level:
+      root: INFO
+springdoc:
+   swagger-ui:
+      path: /phonebridge-user-management.html
+spring:
+   data:
+      mongodb:
+         host: localhost
+         port: 27018
+         database: phonebridge-authserver
+   application:
+      name: phonebridge-authservice
+   cloud:
+      stream:
+         kafka:
+            binder:
+               autoAddPartitions: true
+      bus:
+         refresh:
+            enabled: true
+         env:
+            enabled: true
+   kafka:
+      bootstrap-servers: http://localhost:9092
+eureka:
+   instance:
+      preferIpAddress: true
+   client:
+      serviceUrl:
+         defaultZone: http://localhost:8761/eureka
+jwt:
+   secret: PH0N3@br14g3
+management:
+   security:
+      enabled: false
+endpoints:
+   spring:
+      cloud:
+         bus:
+            refresh:
+               enabled: true
+            env:
+               enabled: true
+#logging.level.org.springframework=DEBUG

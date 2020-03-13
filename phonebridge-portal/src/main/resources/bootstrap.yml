@@ -1,6 +1,18 @@
 spring:
    application:
-      name: portal-service
+      name: phonebridge-portal-service
+   kafka:
+      bootstrap-servers: http://localhost:9092
+   cloud:
+      stream:
+         kafka:
+            binder:
+               autoAddPartitions: true
+      bus:
+         refresh:
+            enabled: true
+         env:
+            enabled: true
    autoconfigure:
       exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
 eureka:
@@ -14,7 +26,17 @@ mongodb:
       host: ${mongo.host}
       port: ${mongo.port}
       database: ${mongo.dbname}
-      
+management:
+   security:
+      enabled: false
+endpoints:
+   spring:
+      cloud:
+         bus:
+            refresh:
+               enabled: true
+            env:
+               enabled: true
 #eureka:
 #  instance:
 #    preferIpAddress : true

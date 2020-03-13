@@ -2,19 +2,18 @@
 
 Docker commands to start mongodb before starting the application.
 
-docker run -d -p 27017:27017 mongo  (For portal service)
+docker-compose up (To start MongoDB & Apache Kafka)
 
-docker run -d -p 27018:27017 mongo  (For user management service)
+docker-compose down (To stop MongoDB & Apache Kafka)
 
 | Application  | Description | Port |
 | ------------- | ------------- | ------------- |
+| phonebridge-discovery  | Phone bridge eureka server  | 8761  |
+| phonebridge-config-server  | Phone bridge config server  | 8888  |
 | phonebridge-common  | Project with common files  | NA  |
 | phonebridge-portal  | Portal service & campaign service  | 8080  |
 | phone-bridge-ui  | User interface for phone bridge application  | 4200  |
-| phonebridge-usermanagement  | Phone bridge user management  | 8081  |
-| phonebridge-discovery  | Phone bridge eureka server  | 8761  |
-| phonebridge-config-server  | Phone bridge config server  | 8888  |
-
+| phonebridge-authserver  | Phone bridge auth server  | 8081  |
 
 ![quote](https://www.success.com/wp-content/uploads/legacy/sites/default/files/new3.jpg)
 

@@ -1,10 +1,22 @@
-spring:
- application:
-    name: phonebridge-config-server
- cloud:
-  config:
-   server:
-    git:
-     uri: file://F:/Workspace/Eclipse_Workspace/git-localconfig-repo
 server:
- port: 8888
+   port: 8888
+management:
+   endpoints:
+      web:
+         exposure:
+            include: bus-refresh
+   security:
+      enabled: false
+spring:
+   application:
+      name: phonebridge-config-server
+   kafka:
+      bootstrap-servers: http://localhost:9092
+   cloud:
+      bus:
+         enabled: true
+      config:
+         server:
+            git:
+               uri: https://github.com/Vinoth5595/phonebridge-configurations.git
+               clone-on-start: true
