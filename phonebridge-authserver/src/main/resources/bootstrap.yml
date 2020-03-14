@@ -14,6 +14,10 @@ spring:
          database: phonebridge-authserver
    application:
       name: phonebridge-authservice
+   boot:
+      admin:
+         client:
+            url: http://localhost:8093
    cloud:
       stream:
          kafka:
@@ -35,6 +39,10 @@ eureka:
 jwt:
    secret: PH0N3@br14g3
 management:
+   endpoints:
+      web:
+         exposure:
+            include: '*'
    security:
       enabled: false
 endpoints:

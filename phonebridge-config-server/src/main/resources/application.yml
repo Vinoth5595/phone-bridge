@@ -1,15 +1,22 @@
+logging:
+   level:
+      root: INFO
 server:
    port: 8888
 management:
    endpoints:
       web:
          exposure:
-            include: bus-refresh
+            include: '*'
    security:
       enabled: false
 spring:
    application:
       name: phonebridge-config-server
+   boot:
+      admin:
+         client:
+            url: http://localhost:8093
    kafka:
       bootstrap-servers: http://localhost:9092
    cloud:

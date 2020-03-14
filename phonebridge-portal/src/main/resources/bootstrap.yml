@@ -1,6 +1,13 @@
+logging:
+   level:
+      root: INFO
 spring:
    application:
       name: phonebridge-portal-service
+   boot:
+      admin:
+         client:
+            url: http://localhost:8093
    kafka:
       bootstrap-servers: http://localhost:9092
    cloud:
@@ -23,10 +30,14 @@ server:
    port: 8080
 mongodb:
    primary:
-      host: ${mongo.host}
-      port: ${mongo.port}
-      database: ${mongo.dbname}
+      host: localhost
+      port: 27017
+      database: phonebridge-portalservice-db
 management:
+   endpoints:
+      web:
+         exposure:
+            include: '*'
    security:
       enabled: false
 endpoints:

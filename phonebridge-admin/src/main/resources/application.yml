@@ -1,0 +1,8 @@
+logging:
+   level:
+      root: INFO
+spring:
+   application:
+      name: phonebridge-admin
+server:
+   port: 8093

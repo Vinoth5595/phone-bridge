@@ -1,18 +1,23 @@
 spring:
- application:
-    name: phonebridge-discovery
-    
+   application:
+      name: phonebridge-discovery
+   boot:
+      admin:
+         client:
+            url: http://localhost:8093
 server:
-  port: 8761
-  
+   port: 8761
 eureka:
- client:
-  register-with-eureka: false
-  fetch-registry: false
-  
+   client:
+      register-with-eureka: false
+      fetch-registry: false
 logging:
- level:
-  com:
-   netflix:
-    eureka: OFF
-    discovery: OFF
+      com:
+         netflix:
+            eureka: false
+            discovery: false
+management:
+   endpoints:
+      web:
+         exposure:
+            include: '*'
