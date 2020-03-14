@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+   phonebridge-discovery:
+      build:
+         context: ./phonebridge-discovery
+         dockerfile: Dockerfile.dev
+      ports:
+      - 8761:8761
+   phonebridge-config-server:
+      restart: always
+      build:
+         context: ./phonebridge-config-server
+         dockerfile: Dockerfile.dev
+      ports:
+      - 8888:8888
