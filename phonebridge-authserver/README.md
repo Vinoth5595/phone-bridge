@@ -1,7 +1,7 @@
-# User and Account Management
+# phone bridge User, Account & Auth Manager
 
-| Application  | Description | Swagger URL |
-| ------------- | ------------- | ------------- |
-| phonebridge-usermanagement  | Phone bridge user and account management  | http://localhost:8081/phonebridge-user-management.html  |
+| Application  | Description | 
+| ------------- | ------------- | 
+| phonebridge-authserver  | Phone bridge user, account & auth manager  | 
 
 
