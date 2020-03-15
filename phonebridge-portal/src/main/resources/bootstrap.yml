@@ -22,10 +22,6 @@ spring:
             enabled: true
    autoconfigure:
       exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
-eureka:
-   client:
-      service-url:
-         default-zone: http://localhost:8761/eureka
 server:
    port: 8080
 mongodb:
