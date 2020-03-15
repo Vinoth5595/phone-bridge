@@ -10,7 +10,7 @@ import com.phonebridge.authserver.config.PhoneBridgePropertyConfig;
 
 @RefreshScope
 @RestController
-@RequestMapping("/config")
+@RequestMapping("/authconfig")
 public class ConfigTestController {
 	
 	@Autowired

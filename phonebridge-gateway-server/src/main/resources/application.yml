@@ -1,0 +1,28 @@
+logging:
+   level:
+      root: INFO
+spring:
+   application:
+      name: phonebridge-gateway-server
+   cloud:
+    gateway:
+      routes:
+        - id: phonebridge-portal-service
+          uri: lb://phonebridge-portal-service
+          predicates:
+            - Path=/config/**
+        - id: phonebridge-authservice
+          uri: lb://phonebridge-authservice
+          predicates:
+            - Path=/authconfig/**
+   boot:
+      admin:
+         client:
+            url: http://phonebridge-admin
+server:
+   port: 8085
+management:
+   endpoints:
+      web:
+         exposure:
+            include: '*'

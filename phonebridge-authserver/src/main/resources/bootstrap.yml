@@ -30,9 +30,6 @@ spring:
             enabled: true
    kafka:
       bootstrap-servers: http://localhost:9092
-eureka:
-   instance:
-      preferIpAddress: true
 jwt:
    secret: PH0N3@br14g3
 management:
