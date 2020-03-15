@@ -1,5 +1,6 @@
 HELP.md
 target/
+bin
 mvnw
 mvnw.cmd
 !.mvn/wrapper/maven-wrapper.jar

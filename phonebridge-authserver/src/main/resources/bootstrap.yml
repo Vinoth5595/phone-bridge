@@ -17,7 +17,7 @@ spring:
    boot:
       admin:
          client:
-            url: http://localhost:8093
+            url: http://phonebridge-admin
    cloud:
       stream:
          kafka:

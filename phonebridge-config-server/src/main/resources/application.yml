@@ -2,7 +2,7 @@ logging:
    level:
       root: INFO
 server:
-   port: 8888
+   port: 8887
 management:
    endpoints:
       web:
@@ -16,7 +16,7 @@ spring:
    boot:
       admin:
          client:
-            url: http://localhost:8093
+            url: http://phonebridge-admin
    kafka:
       bootstrap-servers: http://localhost:9092
    cloud:
