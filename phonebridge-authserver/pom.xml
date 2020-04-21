@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.phonebridge.usermanagement</groupId>
-	<artifactId>phonebridge-usermanagement</artifactId>
+	<artifactId>phonebridge-authserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>phonebridge-usermanagement</name>
-	<description>Phone bridge user management</description>
+	<name>phonebridge-authserver</name>
+	<description>Phone bridge auth server</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

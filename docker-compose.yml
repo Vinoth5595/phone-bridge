@@ -1,29 +1,141 @@
 version: '3.7'
 services:
-   zookeeper:
-      image: wurstmeister/zookeeper
-      container_name: zookeeper
-      ports:
-      - 2181:2181
-   kafka:
-      image: wurstmeister/kafka
-      container_name: kafka
-      depends_on:
-      - "zookeeper"
-      ports:
-      - 9092:9092
-      environment:
-         KAFKA_ADVERTISED_HOST_NAME: localhost
-         KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-   portal-service-mongodb:
-      image: mongo:latest
-      container_name: portal-service-mongodb
-      ports:
-      - 27017:27017
-   authserver-mongodb:
-      image: mongo:latest
-      container_name: authserver-mongodb
-      ports:
-      - 27018:27017
+    zookeeper:
+        image: wurstmeister/zookeeper
+        container_name: zookeeper
+        ports:
+            - '2181:2181'
+    kafka:
+        image: wurstmeister/kafka
+        container_name: kafka
+        depends_on:
+            - zookeeper
+        ports:
+            - '9092:9092'
+        environment:
+            KAFKA_ADVERTISED_HOST_NAME: localhost
+            KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+    portal-service-mongodb:
+        image: 'mongo:latest'
+        container_name: portal-service-mongodb
+        ports:
+            - '27017:27017'
+    authserver-mongodb:
+        image: 'mongo:latest'
+        container_name: authserver-mongodb
+        ports:
+            - '27018:27017'
+    app:
+        image: 'docker-logs-elk/dummy-app:1.0.0'
+        build:
+            context: phonebridge-elastic-stack/dummy-app
+            dockerfile: Dockerfile
+    phonebridge-discovery:
+        image: 'phonebridge-discovery'
+        build:
+            context: phonebridge-discovery
+            dockerfile: Dockerfile.dev
+        ports:
+            - '8761:8761'
+    phonebridge-admin:
+        image: 'phonebridge-admin'
+        build:
+            context: phonebridge-admin
+            dockerfile: Dockerfile.dev
+        ports:
+            - '8093:8093'
+        depends_on:
+            - phonebridge-discovery
+    phonebridge-config-server:
+        image: 'phonebridge-config-server'
+        build:
+            context: phonebridge-config-server
+            dockerfile: Dockerfile.dev
+        ports:
+            - '8887:8887'
+        depends_on:
+            - kafka
+            - phonebridge-discovery
+            - phonebridge-admin
+    phonebridge-portal:
+        image: 'phonebridge-portal'
+        build:
+            context: phonebridge-portal
+            dockerfile: Dockerfile.dev
+        ports:
+            - '8080:8080'
+        depends_on:
+            - portal-service-mongodb
+            - phonebridge-discovery
+            - phonebridge-admin
+            - phonebridge-config-server
+    phonebridge-authserver:
+        image: 'phonebridge-authserver'
+        build:
+            context: phonebridge-authserver
+            dockerfile: Dockerfile.dev
+        ports:
+            - '8081:8081'
+        depends_on:
+            - authserver-mongodb
+            - phonebridge-discovery
+            - phonebridge-admin
+            - phonebridge-config-server
+    phonebridge-gateway-server:
+        image: 'phonebridge-gateway-server'
+        build:
+            context: phonebridge-gateway-server
+            dockerfile: Dockerfile.dev
+        ports:
+            - '8085:8085'
+        depends_on:
+            - phonebridge-discovery
+            - phonebridge-admin
+            - phonebridge-config-server
+    filebeat:
+        hostname: filebeat
+        image: 'docker-logs-elk/filebeat:1.0.0'
+        build:
+            context: phonebridge-elastic-stack/filebeat
+            dockerfile: Dockerfile
+        volumes:
+            - '/var/lib/docker/containers:/usr/share/dockerlogs/data:ro'
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        links:
+            - logstash
+    kibana:
+        image: 'kibana:7.6.2'
+        environment:
+            - LOGGING_QUIET=true
+        links:
+            - elasticsearch
+        ports:
+            - '5601:5601'
+    logstash:
+        hostname: logstash
+        image: 'docker-logs-elk/logstash:1.0.0'
+        build:
+            context: phonebridge-elastic-stack/logstash
+            dockerfile: Dockerfile
+        ports:
+            - '5044:5044'
+        environment:
+            LOG_LEVEL: error
+        links:
+            - elasticsearch
+    elasticsearch:
+        hostname: elasticsearch
+        image: 'docker-logs-elk/elasticsearch:1.0.0'
+        build:
+            context: phonebridge-elastic-stack/elasticsearch
+            dockerfile: Dockerfile
+        environment:
+            - cluster.name=docker-logs-elk-cluster
+            - bootstrap.memory_lock=true
+            - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+        ulimits:
+            memlock: {soft: -1, hard: -1}
+        ports:
+            - '9200:9200'
