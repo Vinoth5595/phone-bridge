@@ -30,7 +30,7 @@
     "datatables.net": "~1.10.20",
     "datatables.net-dt": "~1.10.20",
     "font-awesome": "~4.7.0",
-    "jquery": "~3.4.1",
+    "jquery": "~3.5.0",
     "ng2-charts": "~2.3.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
