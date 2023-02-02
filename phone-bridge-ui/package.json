@@ -24,7 +24,7 @@
     "@ngx-translate/core": "~11.0.1",
     "@ngx-translate/http-loader": "~4.0.0",
     "angular-archwizard": "~5.0.0",
-    "angular-datatables": "~8.0.0",
+    "angular-datatables": "~15.0.0",
     "chart.js": "~2.9.3",
     "core-js": "~3.5.0",
     "datatables.net": "~1.11.3",
@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.4",
-    "@angular/cli": "^9.0.4",
+    "@angular/cli": "^9.1.0",
     "@angular/compiler-cli": "~9.0.4",
     "@angular/language-service": "~9.0.4",
     "@types/datatables.net": "~1.10.18",
